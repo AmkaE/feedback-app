@@ -17,14 +17,7 @@ const FeedbackList = ({ feedback, handleDelete }) => {
 
 // for type checking
 FeedbackList.propTypes = {
-	// feedback: PropType.array,
-	feedback: PropType.arrayOf(
-		PropType.shape({
-			id: PropType.number.isRequired,
-			rating: PropType.number.isRequired,
-			text: PropType.string.isRequired,
-		}),
-	),
+	feedback: PropType.array,
 };
 
 export default FeedbackList;
