@@ -1,3 +1,4 @@
+import PropType from 'prop-types';
 import FeedbackItem from './FeedbackItem';
 
 const FeedbackList = ({ feedback }) => {
@@ -12,6 +13,18 @@ const FeedbackList = ({ feedback }) => {
 			))}
 		</div>
 	);
+};
+
+// for type checking
+FeedbackList.propTypes = {
+	// feedback: PropType.array,
+	feedback: PropType.arrayOf(
+		PropType.shape({
+			id: PropType.number.isRequired,
+			rating: PropType.number.isRequired,
+			text: PropType.string.isRequired,
+		}),
+	),
 };
 
 export default FeedbackList;
