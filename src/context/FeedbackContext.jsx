@@ -28,14 +28,27 @@ export const FeedbackProvider = ({ children }) => {
 		});
 	};
 
+	const updateFeedback = (id, updatedItem) => {
+		if (feedbackEdit.edit) {
+			return setFeedback(
+				feedback.map(item =>
+					item.id === id ? { ...item, ...updatedItem } : item,
+				),
+			);
+		}
+	};
+
 	return (
 		<FeedbackContext.Provider
 			value={{
+				//variables
 				feedback,
+				feedbackEdit,
+				// functions
 				deleteFeedback,
 				addFeedback,
 				editFeedback,
-				feedbackEdit,
+				updateFeedback,
 			}}>
 			{children}
 		</FeedbackContext.Provider>

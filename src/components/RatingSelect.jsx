@@ -3,7 +3,7 @@ import FeedbackContext from '../context/FeedbackContext';
 
 const RatingSelect = ({ select }) => {
 	const [selected, setSelected] = useState(7);
-	const { addFeedback, feedbackEdit } = useContext(FeedbackContext);
+	const { feedbackEdit } = useContext(FeedbackContext);
 
 	useEffect(() => {
 		if (feedbackEdit.edit) {
