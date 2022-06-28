@@ -45,9 +45,18 @@ export const FeedbackProvider = ({ children }) => {
 		}
 	};
 
-	const deleteFeedback = id => {
+	const deleteFeedback = async id => {
 		if (window.confirm('Are you sure you want to delete')) {
-			setFeedback(feedback.filter(item => item.id !== id));
+			try {
+				const config = {
+					method: 'DELETE',
+				};
+				await fetch(`http://localhost:5000/feedback/${id}`, config);
+
+				setFeedback(feedback.filter(item => item.id !== id));
+			} catch (err) {
+				console.error('Error: ', err);
+			}
 		}
 	};
 
@@ -58,13 +67,26 @@ export const FeedbackProvider = ({ children }) => {
 		});
 	};
 
-	const updateFeedback = (id, updatedItem) => {
-		if (feedbackEdit.edit) {
-			return setFeedback(
-				feedback.map(item =>
-					item.id === id ? { ...item, ...updatedItem } : item,
-				),
-			);
+	const updateFeedback = async (id, updatedItem) => {
+		try {
+			const config = {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(updatedItem),
+			};
+
+			const res = await fetch(`http://localhost:5000/feedback/${id}`, config);
+			const data = await res.json();
+
+			setFeedback(feedback.map(item => (item.id === id ? data : item)));
+			setFeedbackEdit({
+				item: {},
+				edit: false,
+			});
+		} catch (err) {
+			console.error('Error: ', err);
 		}
 	};
 
